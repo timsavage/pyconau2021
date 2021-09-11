@@ -2,7 +2,8 @@ import machine
 from time import ticks_add, ticks_diff, ticks_ms, ticks_us
 import _thread
 
-import animations
+import animation
+
 
 #
 # Display shift-register interface
@@ -23,21 +24,21 @@ class Display:
             self.clock.off()
 
     def set(self, value):
-        self.latch.on()
-        self.shift_out(value << self.offset)
         self.latch.off()
+        self.shift_out(value << self.offset)
+        self.latch.on()
 
 
-DELAY = 100
+DELAY = 1000
 PHASES = 4
 MAP = [
     4, 4, 4,
-    4, 4, 4, 4,      # Green
+    4, 4, 4, 4,  # Green
     15, 15, 15, 15,  # Yellow
     15, 15, 15, 15,  # Orange
     10, 10, 10, 10,  # Red
     15, 15, 15, 15,  # Blue
-    4, 4, 4, 4,      # Green
+    4, 4, 4, 4,  # Green
 ]
 output_buffer = [0] * 28
 
@@ -66,7 +67,7 @@ def output_thread():
     while True:
         now = ticks_us()
         if ticks_diff(now, deadline) > 0:
-            display.set(output)
+            display.set(bam(output_buffer, phase))
 
             # Calculate next
             delay <<= 1
@@ -75,25 +76,23 @@ def output_thread():
                 phase = 0
                 delay = DELAY
 
-            # Generate next state and deadline
-            output = bam(output_buffer, phase)
+            # Generate next deadline
             deadline = ticks_add(now, delay)
 
 
 #
 # Helper run loop that takes a object with a loop
 #
-def run(*anis, delay=100, ani_delay=10000):
+def run(*anis, delay=100, ani_delay=5000):
     state = [False] * 27
     deadline = 0
     ani_idx = 0
+    ani_timeout = ticks_add(ticks_ms(), ani_delay)
 
     while True:
         ani = anis[ani_idx]
-        ani_idx = (ani_idx + 1) % len(anis)
-        ani_next = ticks_add(ticks_ms(), ani_delay)
 
-        while ticks_diff(ticks_ms(), ani_next) < 0:
+        while ticks_diff(ticks_ms(), ani_timeout):
             now = ticks_ms()
             if ticks_diff(now, deadline) > 0:
                 # Update output buffer
@@ -104,6 +103,9 @@ def run(*anis, delay=100, ani_delay=10000):
                 ani(state)
                 deadline = ticks_add(now, delay)
 
+        ani_idx = (ani_idx + 1) % len(anis)
+        ani_timeout = ticks_add(ticks_ms(), ani_delay)
+
 
 #
 # Clear display
@@ -113,8 +115,8 @@ def clear():
         output_buffer[idx] = 0
 
 
-b = animations.Bounce()
-c = animations.Chaser()
-s = animations.Snake()
+b = animation.Bounce()
+s = animation.Snake()
+c = animation.Chaser()
 
 _thread.start_new_thread(output_thread, ())
