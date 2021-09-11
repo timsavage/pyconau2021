@@ -19,14 +19,22 @@
 				<section>
 					<h1>LED Curlyboi</h1>
 					<div style="width: 100%; ">
-						<img src="assets/image/Curlyboi.svg">
+						<img src="assets/image/Curlyboi.svg" alt="">
 					</div>
 
 				</section>
+
 				<section>
 					<h2>From last PyconAU</h2>
 					<img src="assets/image/from-last-pyconau.jpg" alt="">
+
+					<aside class="notes">
+						<ul>
+							<li>From last pycon</li>
+						</ul>
+					</aside>
 				</section>
+
 				<section>
 					<section>
 						<h2>Prototyping</h2>
@@ -40,6 +48,7 @@
 						<img src="assets/image/snek-baby.jpg" alt="">
 					</section>
 				</section>
+
 				<section>
 					<section>
 						<h2>Final build</h2>
@@ -61,10 +70,18 @@
 						<img src="assets/image/curly-build4.jpg" alt="">
 					</section>
 				</section>
+
 				<section>
 					<h2>First test</h2>
 					<img src="assets/image/curlyboi-test.jpg" alt="">
+
+					<aside class="notes">
+						<ul>
+							<li>Red and Green are brighter</li>
+						</ul>
+					</aside>
 				</section>
+
 				<section>
 					<section data-transition="fade">
 						<h2>Hardware</h2>s
@@ -73,45 +90,88 @@
 					<section data-transition="fade">
 						<h2>Shift Registers</h2>
 						<img src="assets/image/hardware-shift-registers.jpg" alt="">
+
+						<aside class="notes">
+							<ul>
+								<li>IC is a TPIC595</li>
+								<li>Similar to HC595</li>
+								<li>3 wires, Data, Clock, Latch</li>
+								<li>sink 150mA</li>
+							</ul>
+						</aside>
 					</section>
 					<section data-transition="fade">
 						<h2>Raspberry Pi Pico</h2>
 						<img src="assets/image/hardware-pico.jpg" alt="">
+
+						<aside class="notes">
+							<ul>
+								<li>Dual core</li>
+							</ul>
+						</aside>
 					</section>
 				</section>
+
 				<section>
 					<h2>BAM</h2>
 					<p>Bit Angle Modulation (and other names)</p>
 					<img src="assets/image/bam.jpg" alt="">
+
+					<aside class="notes">
+						<ul>
+							<li>6 bit - 64 levels</li>
+							<li>ratio between on/off brightness</li>
+							<li>PWM in red</li>
+							<li>simple in software</li>
+						</ul>
+					</aside>
 				</section>
+
 				<section>
 					<section>
 						<h2>Micropython</h2>
-						<img src="assets/image/micropython.png">
+						<img src="assets/image/micropython.png" alt="">
 					</section>
 					<section>
 						<h2>Wins</h2>
 						<ul>
-							<li>Multicore 🎉</li>
-							<li>Animations 🎉</li>
+							<li>🎉 Threading</li>
+							<li>🎉 Animations and Output on separate cores</li>
 						</ul>
 					</section>
 					<section>
 						<h2>Limits</h2>
 						<ul>
-							<li>4 bit BAM </li>
-							<li>Speed</li>
+							<li>🏁 Speed</li>
+							<li>🛑 4 bit BAM</li>
 						</ul>
+
+						<aside class="notes">
+							<ul>
+								<li>Max 4 bit (maybe 5)</li>
+								<li>1000us -> 15000us (15ms) ~60Hz</li>
+							</ul>
+						</aside>
 					</section>
 				</section>
+
 				<section>
 					<h2>Result</h2>
 					<video src="assets/video/curly-animation.mp4" controls="controls"></video>
 				</section>
+
 				<section>
 					<h2>Next</h2>
-					<img src="assets/image/rust.png">
+					<img src="assets/image/rust.png" alt="">
+
+					<aside class="notes">
+						<ul>
+							<li>Kids XMas lights</li>
+							<li>Port to C/Rust</li>
+						</ul>
+					</aside>
 				</section>
+
 				<section>
 					<h2>Slides/Code</h2>
 					<ul>
